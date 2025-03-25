@@ -1,0 +1,63 @@
+#include <stdio.h>
+
+// Define some colors
+typedef enum {
+    RED,
+    GREEN,
+    BLUE
+} Color;
+
+// Define some font styles
+typedef enum {
+    BOLD,
+    ITALIC,
+    NORMAL
+} FontStyle;
+
+// Function to set the background color
+void set_background_color(Color color) {
+    switch (color) {
+        case RED:
+            printf("Background color: Red\n");
+            break;
+        case GREEN:
+            printf("Background color: Green\n");
+            break;
+        case BLUE:
+            printf("Background color: Blue\n");
+            break;
+    }
+}
+
+// Function to set the font style
+void set_font_style(FontStyle style) {
+    switch (style) {
+        case BOLD:
+            printf("Font style: Bold\n");
+            break;
+        case ITALIC:
+            printf("Font style: Italic\n");
+            break;
+        case NORMAL:
+            printf("Font style: Normal\n");
+            break;
+    }
+}
+
+// Function to set the font size
+void set_font_size(int size) {
+    printf("Font size: %d\n", size);
+}
+
+int main() {
+    // Set the background color to blue
+    set_background_color(BLUE);
+
+    // Set the font style to bold
+    set_font_style(BOLD);
+
+    // Set the font size to 24
+    set_font_size(24);
+
+    return 0;
+}
