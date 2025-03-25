@@ -1,0 +1,81 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX 100
+
+// Structure to represent an index entry
+typedef struct {
+    char keyword[20];
+    int index;
+} Index;
+
+// Function to create an index
+void createIndex(char text[], Index index[], int *indexCount) {
+    char keyword[20];
+    int i, j, k;
+
+    // Split the text into keywords
+    for (i = 0, j = 0; i < strlen(text); i++) {
+        if (text[i] == ' ') {
+            keyword[j] = '\0';
+            j = 0;
+
+            // Add the keyword to the index
+            strcpy(index[*indexCount].keyword, keyword);
+            index[*indexCount].index = i;
+            (*indexCount)++;
+        } else {
+            keyword[j++] = text[i];
+        }
+    }
+
+    // Add the last keyword to the index
+    keyword[j] = '\0';
+    strcpy(index[*indexCount].keyword, keyword);
+    index[*indexCount].index = i;
+    (*indexCount)++;
+}
+
+// Function to search for a keyword in the index
+int searchIndex(Index index[], int indexCount, char keyword[]) {
+    int i;
+
+    for (i = 0; i < indexCount; i++) {
+        if (strcmp(index[i].keyword, keyword) == 0) {
+            return index[i].index;
+        }
+    }
+
+    return -1; // Keyword not found
+}
+
+int main() {
+    char text[MAX];
+    Index index[MAX];
+    int indexCount = 0;
+    char keyword[20];
+
+    printf("Enter a text: ");
+    fgets(text, MAX, stdin);
+    text[strlen(text) - 1] = '\0'; // Remove the newline character
+
+    createIndex(text, index, &indexCount);
+
+    printf("Index:\n");
+    for (int i = 0; i < indexCount; i++) {
+        printf("%s: %d\n", index[i].keyword, index[i].index);
+    }
+
+    printf("Enter a keyword to search: ");
+    scanf("%s", keyword);
+
+    int result = searchIndex(index, indexCount, keyword);
+
+    if (result != -1) {
+        printf("Keyword found at index %d\n", result);
+    } else {
+        printf("Keyword not found\n");
+    }
+
+    return 0;
+}    
